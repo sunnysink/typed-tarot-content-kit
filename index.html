@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typed Tarot Content Kit &mdash; 12 Posts</title>
+  <style>
+    :root {
+      --bg: #F5F0EB;
+      --panel: #EDE7D9;
+      --panel-2: #E3DFD0;
+      --tx: #463C32;
+      --tx-strong: #2C2621;
+      --tx-soft: #7C7060;
+      --acc: #C28A46;
+      --acc-tx: #96682B;
+      --grn: #5B6655;
+      --sage: #8C9A83;
+      --gold: #B59A68;
+      --cedar: #6A5848;
+      --line: rgba(106, 88, 72, .28);
+      --line-strong: rgba(106, 88, 72, .55);
+      --shadow: rgba(44, 38, 33, .14);
+      --tape: rgba(181, 154, 104, .38);
+      --stain: rgba(106, 88, 72, .07);
+      --btn-tx: #26201A;
+      --freebie: #6B5E7A;
+      --serif: 'Palatino Linotype', Georgia, serif;
+      --typed: 'Courier New', monospace;
+      --body: 'Palatino Linotype', Palatino, Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--tx);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 0% 0%, var(--stain), transparent 70%),
+        radial-gradient(ellipse 50% 35% at 100% 100%, var(--stain), transparent 70%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.08'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 26px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Header ── */
+
+    .kit-header {
+      padding: 64px 0 48px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      font-family: var(--typed);
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--acc-tx);
+      margin-bottom: 16px;
+    }
+
+    .kit-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--tx-strong);
+      line-height: 1.12;
+      text-wrap: balance;
+      letter-spacing: .03em;
+      margin-bottom: 6px;
+    }
+
+    .kit-subtitle {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 500;
+      font-style: italic;
+      color: var(--tx-soft);
+      letter-spacing: .04em;
+      margin-bottom: 32px;
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--acc-tx);
+      font-size: .85rem;
+      margin: 0 auto;
+      max-width: 340px;
+    }
+
+    .rule::before,
+    .rule::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line-strong);
+    }
+
+    /* ── Notes scrap ── */
+
+    .notes-scrap {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 3px 5px 14px var(--shadow);
+      transform: rotate(-.6deg);
+      padding: 30px 26px 26px;
+      margin: 32px auto 28px;
+      max-width: 560px;
+      border-radius: 2px;
+      text-align: left;
+    }
+
+    .notes-scrap::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 96px;
+      height: 24px;
+      background: var(--tape);
+      border-radius: 2px;
+    }
+
+    .notes-scrap ul { list-style: none; padding: 0; }
+
+    .notes-scrap li {
+      font-family: var(--typed);
+      font-size: .88rem;
+      line-height: 1.9;
+      letter-spacing: .04em;
+      color: var(--tx);
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .notes-scrap li::before {
+      content: "\2726";
+      color: var(--acc-tx);
+      flex: 0 0 auto;
+      font-size: .75rem;
+    }
+
+    .notes-scrap strong {
+      color: var(--acc-tx);
+      font-weight: 400;
+    }
+
+    /* ── Buttons ── */
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--typed);
+      font-size: .82rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 22px 11px;
+      border-radius: 2px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .btn-amber {
+      background: var(--acc);
+      color: var(--btn-tx);
+      box-shadow: 3px 3px 0 var(--shadow);
+    }
+
+    .btn-amber:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--shadow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--tx-strong);
+      border-color: var(--line-strong);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--acc);
+      color: var(--acc-tx);
+    }
+
+    .btn-success {
+      background: var(--grn) !important;
+      color: #fff !important;
+      border-color: var(--grn) !important;
+    }
+
+    .btn-sm {
+      font-size: .7rem;
+      padding: 8px 14px 6px;
+      letter-spacing: .1em;
+    }
+
+    /* ── Post cards ── */
+
+    .posts-section { padding: 48px 0 64px; }
+
+    .post-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--acc);
+      box-shadow: 2px 4px 12px var(--shadow);
+      margin-bottom: 28px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .post-card:nth-child(odd) { transform: rotate(-.3deg); }
+    .post-card:nth-child(even) { transform: rotate(.25deg); }
+    .post-card.border-gold { border-top-color: var(--gold); }
+    .post-card.border-freebie { border-top-color: var(--freebie); }
+
+    .post-card-inner { padding: 30px 26px 0; }
+
+    .post-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .post-num {
+      font-family: var(--typed);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--tx-soft);
+    }
+
+    /* ── Tags ── */
+
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .tag {
+      font-family: var(--typed);
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 5px 10px 3px;
+      border-radius: 2px;
+      border: 1px solid var(--line-strong);
+      color: var(--tx-strong);
+      background: var(--panel);
+    }
+
+    .tag-launch { border-color: var(--acc); color: var(--acc-tx); }
+    .tag-signature { border-color: var(--gold); color: var(--cedar); }
+    .tag-typing { border-color: var(--grn); color: var(--grn); }
+    .tag-freebie { border-color: var(--freebie); color: var(--freebie); }
+    .tag-format { border-color: var(--line); color: var(--tx-soft); }
+    .tag-pillar { border-color: var(--sage); color: var(--sage); }
+
+    /* ── Hook + graphic headline ── */
+
+    .hook-section { margin-bottom: 22px; }
+
+    .hook-label,
+    .graphic-hl-label,
+    .slides-label {
+      font-family: var(--typed);
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--tx-soft);
+      margin-bottom: 6px;
+    }
+
+    .hook-text {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--tx-strong);
+    }
+
+    .graphic-hl-section { margin-bottom: 22px; }
+
+    .graphic-hl-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--acc-tx);
+    }
+
+    /* ── Carousel slides ── */
+
+    .slides-section { margin-bottom: 20px; }
+
+    .slides-label { margin-bottom: 10px; }
+
+    .slides-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line) transparent;
+    }
+
+    .slide-card {
+      flex: 0 0 150px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-top: 2px solid var(--acc);
+      padding: 14px 12px;
+      border-radius: 2px;
+    }
+
+    .slide-num {
+      font-family: var(--typed);
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--acc-tx);
+      margin-bottom: 6px;
+    }
+
+    .slide-hl {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: .82rem;
+      line-height: 1.3;
+      color: var(--tx-strong);
+      margin-bottom: 4px;
+    }
+
+    .slide-sub {
+      font-family: var(--body);
+      font-size: .72rem;
+      line-height: 1.5;
+      color: var(--tx-soft);
+    }
+
+    /* ── Collapsible sections ── */
+
+    .section-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 26px;
+      border: none;
+      border-top: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      transition: background .15s;
+      font-family: var(--typed);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--tx-soft);
+    }
+
+    .section-bar:hover { background: rgba(106, 88, 72, .04); }
+    .section-bar .arr { font-size: .6rem; transition: transform .2s; color: var(--acc-tx); }
+    .section-bar.open .arr { transform: rotate(180deg); }
+
+    .collapse-body { display: none; padding: 0 26px 26px; }
+    .collapse-body.open { display: block; }
+
+    .caption-text {
+      font-family: var(--body);
+      font-size: .94rem;
+      line-height: 1.85;
+      color: var(--tx);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .prompt-box {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 16px 18px;
+      font-family: var(--typed);
+      font-size: .82rem;
+      line-height: 1.7;
+      letter-spacing: .03em;
+      color: var(--tx-soft);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .section-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+    /* ── Footer ── */
+
+    .kit-footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 0;
+      text-align: center;
+    }
+
+    .kit-footer p {
+      font-family: var(--typed);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--tx-soft);
+      opacity: .5;
+      line-height: 2;
+    }
+
+    /* ── Responsive ── */
+
+    @media (max-width: 820px) {
+      .kit-header { padding: 48px 0 36px; }
+      .posts-section { padding: 36px 0 48px; }
+      .post-card:nth-child(odd),
+      .post-card:nth-child(even) { transform: none; }
+      .notes-scrap { transform: none; }
+      .slide-card { flex: 0 0 130px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      .section-bar .arr { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="kit-header">
+      <p class="eyebrow">A Forge Session Bonus</p>
+      <h1 class="kit-title">Your Content Kit</h1>
+      <p class="kit-subtitle">12 posts, ready to light</p>
+      <div class="rule" aria-hidden="true">&#10022;</div>
+
+      <div class="notes-scrap">
+        <ul>
+          <li><strong>Handle:</strong> @TheTypedTarot</li>
+          <li><strong>Booking links are live.</strong> Discover + Develop links are baked into every CTA.</li>
+          <li><strong>Quiz link:</strong> Swap "[quiz link in bio]" once your quiz landing page is live.</li>
+          <li><strong>Images:</strong> Upload your Typed Tarot brand reference to ChatGPT, then paste the prompts below.</li>
+          <li><strong>FB vs IG:</strong> The booking URLs work in FB captions. For IG, put the link in your bio and swap the URL line for "link in bio."</li>
+        </ul>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-amber" onclick="exportAll()">Download All (.txt)</button>
+        <button class="btn btn-ghost" onclick="expandAll()">Expand All</button>
+        <button class="btn btn-ghost" onclick="collapseAll()">Collapse All</button>
+      </div>
+    </header>
+
+    <section class="posts-section" id="posts"></section>
+
+    <footer class="kit-footer">
+      <div class="rule" aria-hidden="true">&#10022;</div>
+      <p style="margin-top:18px;">TheTypedTarot<br>The Pattern Beneath Method</p>
+    </footer>
+  </div>
+
+  <script>
+    var DISCOVER_LINK = "https://calendar.app.google/R7uVgtxThWyMv4ty8";
+    var DEVELOP_LINK = "https://calendar.app.google/JkSWgwMmgC2Skq9u9";
+
+    var posts = [
+      {
+        num: 1, type: "launch", typeLabel: "Launch", format: "Single Image",
+        pillar: "Typed Tarot Education",
+        hook: "Which of your three quiz results did you decide to believe?",
+        graphicHeadline: "Which result did you believe?",
+        slides: null,
+        caption: "Which of your three quiz results did you decide to believe?\n\n📌 Save this if you’ve never been fully sure of your Enneagram type.\n\nHere’s what I want for you: one answer. The right one. The kind you stop second-guessing because it explains things no quiz result ever did.\n\nI’m Lisa, and Typed Tarot is where we find it together.\n\nI created The Pattern Beneath Method after watching too many smart, self-aware women walk away from online quizzes more confused than when they started. A real typing session is a conversation. You leave with your actual type and with proof that your own read on yourself is worth trusting.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Less than half of people who self-type through quizzes land on the right number. If your result never fully clicked, the quiz missed. You didn’t.\n\nFollow @TheTypedTarot for help trusting the answers you already have.\n\n#Enneagram #EnneagramTyping #TarotReading #SelfTrust #TypedTarot #PersonalityTypes #EnneagramJourney #SelfAwareness #InnerKnowing",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"Which result did you believe?\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 2, type: "launch", typeLabel: "Launch", format: "Carousel",
+        pillar: "Typed Tarot Education",
+        hook: "How many times have you known your answer and still asked five people what they think?",
+        slides: [
+          { label: "Cover", headline: "From Knowing Your Answer to Acting On It", subtext: "Why I put tarot and Enneagram together. Swipe." },
+          { label: "Slide 2", headline: "You Already Know", subtext: "The answer shows up. Then the second-guessing buries it." },
+          { label: "Slide 3", headline: "Enneagram Names the Pattern", subtext: "The automatic response you run before you realize you’re running it." },
+          { label: "Slide 4", headline: "Tarot Slows the Moment Down", subtext: "Enough pause for your own answer to surface before the override kicks in." },
+          { label: "CTA", headline: "Ready to Act on Your Own Answers?", subtext: "DM me ‘DISCOVER’ or tap the link in bio." }
+        ],
+        caption: "How many times have you known your answer and still asked five people what they think?\n\n📌 Save this if your last big decision involved a group chat, a pro/con list, and three changed minds.\n\nImagine the other version. The answer shows up, you recognize it, and you act on it. No polling. No three-week research spiral.\n\nThat’s the change my clients come for. Here’s how it works:\n\nEnneagram names your pattern. The automatic response that buries your answer the moment it arrives.\n\nTarot slows the moment down. It creates enough pause for your own response to surface before the pattern takes over.\n\nTogether, that’s The Pattern Beneath Method. You see the mechanism AND you hear what you actually think.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ A session with me never ends at “here’s your type, go research it.” It ends with you catching the pattern in real time, which is where the whole thing starts to change.\n\nFollow @TheTypedTarot if you’re done outsourcing your decisions.\n\n#Enneagram #TarotReading #TypedTarot #SelfTrust #InnerKnowing #EnneagramTypes #PersonalGrowth #SelfAwareness #PatternRecognition",
+        imagePrompt: "Please generate a 4:5, 5-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"From Knowing Your Answer to Acting On It\" Subline: \"Why I put tarot and Enneagram together. Swipe.\"\nSLIDE 2: Headline: \"You Already Know\" Subtext: \"The answer shows up. Then the second-guessing buries it.\"\nSLIDE 3: Headline: \"Enneagram Names the Pattern\" Subtext: \"The automatic response you run before you realize you’re running it.\"\nSLIDE 4: Headline: \"Tarot Slows the Moment Down\" Subtext: \"Enough pause for your own answer to surface before the override kicks in.\"\nSLIDE 5 (CTA): Headline: \"Ready to Act on Your Own Answers?\" Subtext: \"DM me ‘DISCOVER’ or tap the link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 3, type: "signature", typeLabel: "Signature Session", format: "Carousel",
+        pillar: "From Insight to Integration", borderClass: "border-gold",
+        hook: "What’s the decision you’ve been circling for three weeks?",
+        slides: [
+          { label: "Cover", headline: "What Happens in a Develop Session", subtext: "One hour that changes how you hear yourself. Swipe." },
+          { label: "Slide 2", headline: "We Start With What’s Circling", subtext: "The decision you can’t land on. The boundary you keep rehearsing. The want you keep qualifying." },
+          { label: "Slide 3", headline: "Then We Go Underneath", subtext: "Using your Enneagram type and tarot to find the exact moment where you override your own knowing." },
+          { label: "Slide 4", headline: "You Hear Your Own Answer", subtext: "Your response, before the second-guessing kicks in." },
+          { label: "Slide 5", headline: "You Leave With Clarity You Can Trust", subtext: "Because it came from you. The cards just made sure you heard it." },
+          { label: "CTA", headline: "Develop: Where the Map Ends ($60, 1 hr)", subtext: "DM me ‘DEVELOP’ or tap the link in bio." }
+        ],
+        caption: "What’s the decision you’ve been circling for three weeks?\n\n📌 Save this for the next time you catch yourself researching a choice you already made.\n\nHere’s how a Develop session ends: you walk out having heard your own answer, clearly, with enough trust in it to act.\n\nHere’s how we get there.\n\nYou bring whatever is circling. The decision that won’t resolve. The boundary you’ve rehearsed but never delivered. The want you keep qualifying with “but maybe I’m being selfish.”\n\nWe use your Enneagram type to name the specific way you override yourself. Then tarot slows the moment down, long enough for your genuine response to arrive first.\n\nThe clarity holds after the session because it came from you. The cards just made sure you heard it.\n\n→ Book Develop: Where the Map Ends ($60, 1 hr): " + DEVELOP_LINK + "\nOr DM me “DEVELOP”\n\n✦ Most of my clients can tell me exactly what they want within the first ten minutes. The other fifty are about understanding why they stopped trusting it.\n\nFollow @TheTypedTarot for more on hearing your own answer first.\n\n#Enneagram #TarotSession #TypedTarot #SelfTrust #ThePatternBeneath #InnerKnowing #DecisionMaking #TarotReading #EnneagramCoaching",
+        imagePrompt: "Please generate a 4:5, 6-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"What Happens in a Develop Session\" Subline: \"One hour that changes how you hear yourself. Swipe.\"\nSLIDE 2: Headline: \"We Start With What’s Circling\" Subtext: \"The decision you can’t land on. The boundary you keep rehearsing. The want you keep qualifying.\"\nSLIDE 3: Headline: \"Then We Go Underneath\" Subtext: \"Using your Enneagram type and tarot to find the exact moment where you override your own knowing.\"\nSLIDE 4: Headline: \"You Hear Your Own Answer\" Subtext: \"Your response, before the second-guessing kicks in.\"\nSLIDE 5: Headline: \"You Leave With Clarity You Can Trust\" Subtext: \"Because it came from you. The cards just made sure you heard it.\"\nSLIDE 6 (CTA): Headline: \"Develop: Where the Map Ends ($60, 1 hr)\" Subtext: \"DM me ‘DEVELOP’ or tap the link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 4, type: "signature", typeLabel: "Signature Session", format: "Single Image",
+        pillar: "Recognize Your Pattern", borderClass: "border-gold",
+        hook: "You’ve done the therapy. Read the books. Taken every assessment. And you still can’t choose.",
+        graphicHeadline: "You’ve done all the work. You still can’t choose.",
+        slides: null,
+        caption: "You’ve done the therapy. Read the books. Taken every assessment. And you still can’t choose.\n\n📌 Save this for the moment you catch yourself googling something your gut already settled.\n\nYou can explain your patterns to anyone who asks. In detail. With nuance.\n\nAnd then a real decision lands, and suddenly none of that translates.\n\nYou know what you want. You know it clearly. Somewhere between knowing it and choosing it, something takes over and you’re back to polling friends, scrolling threads, making another pro/con list.\n\nThat’s the override. It has a specific shape based on your Enneagram type.\n\nDevelop: Where the Map Ends is a 1-hour session where we find that exact mechanism and let your real answer come through before it fires. You leave with a decision made and a way to make the next one without the spiral.\n\n→ Book here ($60, 1 hr): " + DEVELOP_LINK + "\nOr DM me “DEVELOP”\n\n✦ The gap between “I know what I want” and “I chose what I want” is where your type lives. That’s where we work.\n\nFollow @TheTypedTarot for the difference between knowing yourself and trusting yourself.\n\n#Enneagram #SelfTrust #TypedTarot #DecisionMaking #InnerKnowing #TarotReading #Overthinking #SelfAwareness #ThePatternBeneath",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"You’ve done all the work. You still can’t choose.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 5, type: "typing", typeLabel: "Typing Session", format: "Single Image",
+        pillar: "Recognize Your Pattern",
+        hook: "Less than half of people who take an Enneagram quiz get typed correctly.",
+        graphicHeadline: "Less than half get it right.",
+        slides: null,
+        caption: "Less than half of people who take an Enneagram quiz get typed correctly.\n\n📌 Save this if your Enneagram result never fully clicked.\n\nThat number surprises most people. But it makes sense when you think about how quizzes work.\n\nA quiz captures how you see yourself right now. Your current stress level. The version of you that showed up today. Maybe the version you want to be.\n\nYour real type is the automatic response you have to the world before you even realize you’re responding. A quiz asks your conscious mind to identify something that lives below conscious awareness.\n\nThat’s what a real typing session uncovers. Through conversation, observation, and the kind of honest back-and-forth that 40 multiple-choice questions can’t replicate. You leave with the right number and everything that finally makes sense because of it.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ If you’ve tested as two or three different numbers depending on when you took the quiz, that’s actually useful data. It tells us what you identify with on the surface, which helps narrow down what’s operating underneath.\n\nFollow @TheTypedTarot to find the type your quiz keeps missing.\n\n#Enneagram #EnneagramTyping #TypedTarot #EnneagramTypes #PersonalityTypes #SelfDiscovery #EnneagramJourney #Type4 #Type9",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"Less than half get it right.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 6, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "Recognize Your Pattern",
+        hook: "How many Enneagram quizzes have you taken? Did any two agree?",
+        slides: [
+          { label: "Cover", headline: "Why Enneagram Quizzes Get It Wrong", subtext: "And what actually works instead. Swipe." },
+          { label: "Slide 2", headline: "Quizzes Measure How You See Yourself", subtext: "Your mood today. Your stress level. Who you want to be. That’s not your type." },
+          { label: "Slide 3", headline: "Your Type Lives Below Conscious Awareness", subtext: "The whole point is that it operates automatically. A quiz asks your conscious mind to identify it." },
+          { label: "Slide 4", headline: "A Typing Session Works Differently", subtext: "Conversation. Observation. Real questions. The pattern reveals itself in how you respond in real time." },
+          { label: "CTA", headline: "Discover: The Map + The Mirror ($45, 45 min)", subtext: "DM me ‘DISCOVER’ or tap the link in bio." }
+        ],
+        caption: "How many Enneagram quizzes have you taken? Did any two agree?\n\n📌 Save this if you’ve ever stared at a result thinking “this is close, but something’s off.”\n\nWhen you have your real type, the number stops being trivia. Decisions get simpler. Your relationship patterns start making sense. You catch your automatic response while it’s still happening.\n\nWhich is why getting it right matters, and why quizzes keep missing.\n\nYour type is the pattern that runs while you’re paying attention to something else. A quiz asks your conscious mind to self-report on something that lives below conscious awareness.\n\nReal typing happens in conversation. The pattern reveals itself in how you respond to real questions in real time. In the pauses. In what you explain first and what you skip.\n\nThat’s Discover: The Map + The Mirror. 45 minutes of actual conversation where we find your type together.\n\n→ Book here ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Testing as two or three different numbers is useful data. It tells us what you identify with on the surface, which helps narrow what’s operating underneath.\n\nFollow @TheTypedTarot for typing that holds up in real life.\n\n#Enneagram #EnneagramTyping #TypedTarot #EnneagramQuiz #PersonalityTest #SelfDiscovery #EnneagramTypes #Type1 #Type2 #Type3",
+        imagePrompt: "Please generate a 4:5, 5-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"Why Enneagram Quizzes Get It Wrong\" Subline: \"And what actually works instead. Swipe.\"\nSLIDE 2: Headline: \"Quizzes Measure How You See Yourself\" Subtext: \"Your mood today. Your stress level. Who you want to be. That’s not your type.\"\nSLIDE 3: Headline: \"Your Type Lives Below Conscious Awareness\" Subtext: \"The whole point is that it operates automatically. A quiz asks your conscious mind to identify it.\"\nSLIDE 4: Headline: \"A Typing Session Works Differently\" Subtext: \"Conversation. Observation. Real questions. The pattern reveals itself in how you respond in real time.\"\nSLIDE 5 (CTA): Headline: \"Discover: The Map + The Mirror ($45, 45 min)\" Subtext: \"DM me ‘DISCOVER’ or tap the link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 7, type: "typing", typeLabel: "Typing Session", format: "Single Image",
+        pillar: "Recognize Your Pattern",
+        hook: "What happens between knowing your answer and talking yourself out of it?",
+        graphicHeadline: "The override has a name.",
+        slides: null,
+        caption: "What happens between knowing your answer and talking yourself out of it?\n\n📌 Save this if you’ve ever watched yourself do it in real time.\n\nSomething specific fires in that gap. I call it the override, and it has a different shape for every Enneagram type.\n\nSome types research endlessly. Some poll everyone around them. Some decide their need can wait. Some blow the whole thing up before anyone can see them want something.\n\nThe override is a pattern, and patterns can be caught. Once yours has a name, you start noticing it mid-move. That’s the moment it loses its grip.\n\nDiscover: The Map + The Mirror is where we find your type and name the override it’s been running.\n\n→ Book here ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Most clients say the same thing after their typing session: “That explains so much.” The type description is accurate, sure. But it’s the override finally having a name that changes things.\n\nFollow @TheTypedTarot to catch your override before it runs.\n\n#Enneagram #EnneagramTyping #TypedTarot #SelfAwareness #InnerKnowing #SelfTrust #EnneagramTypes #PersonalGrowth #PatternRecognition",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"The override has a name.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 8, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "Relationships & Communication",
+        hook: "What pattern does your partner see in you that no quiz ever caught?",
+        slides: [
+          { label: "Cover", headline: "Your Enneagram Type in Relationships", subtext: "The pattern your person sees that you don’t. Swipe." },
+          { label: "Slide 2", headline: "How You Ask for Reassurance", subtext: "Each type has a specific way they check if they’re still safe. Most people don’t realize they’re doing it." },
+          { label: "Slide 3", headline: "How You Handle Conflict", subtext: "Your type determines whether you lean in, pull back, or go silent. And whether that matches what you actually want." },
+          { label: "Slide 4", headline: "What You Need to Feel Seen", subtext: "The thing you’ve probably never said out loud because you’re not sure it’s reasonable." },
+          { label: "Slide 5", headline: "All Three Come From the Same Place", subtext: "Reassurance, conflict, being seen. They all run through the same core pattern." },
+          { label: "CTA", headline: "Know Your Real Type First", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "What pattern does your partner see in you that no quiz ever caught?\n\n📌 Save this if you’ve ever been told “you always do this” and genuinely had no idea what they meant.\n\nYour Enneagram type shows up loudest in your closest relationships. That’s where the automatic responses run hardest.\n\nHow you ask for reassurance without directly asking. How you handle conflict when you care about the outcome. What you actually need to feel seen by someone you love, and why you’ve never quite said it plainly.\n\nThese are connected. They all run through the same core pattern your type creates.\n\nWhen you know your real number, relationship patterns stop feeling like personal failures and start making structural sense. You can explain what you need to the person across from you, in plain words, and watch them actually get it.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Some of the best typing sessions I do start with a relationship pattern. The way someone handles conflict or asks for reassurance is often the fastest route to their real number.\n\nFollow @TheTypedTarot for relationship patterns that finally make sense.\n\n#Enneagram #Relationships #EnneagramTyping #TypedTarot #EnneagramInRelationships #CommunicationStyles #ConflictResolution #Type2 #Type4 #Type6 #Type9",
+        imagePrompt: "Please generate a 4:5, 6-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"Your Enneagram Type in Relationships\" Subline: \"The pattern your person sees that you don’t. Swipe.\"\nSLIDE 2: Headline: \"How You Ask for Reassurance\" Subtext: \"Each type has a specific way they check if they’re still safe. Most people don’t realize they’re doing it.\"\nSLIDE 3: Headline: \"How You Handle Conflict\" Subtext: \"Your type determines whether you lean in, pull back, or go silent. And whether that matches what you actually want.\"\nSLIDE 4: Headline: \"What You Need to Feel Seen\" Subtext: \"The thing you’ve probably never said out loud because you’re not sure it’s reasonable.\"\nSLIDE 5: Headline: \"All Three Come From the Same Place\" Subtext: \"Reassurance, conflict, being seen. They all run through the same core pattern.\"\nSLIDE 6 (CTA): Headline: \"Know Your Real Type First\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 9, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "From Insight to Integration",
+        hook: "When did you last make a decision without polling anyone first?",
+        slides: [
+          { label: "Cover", headline: "After You Know Your Real Type", subtext: "What actually changes. Swipe." },
+          { label: "Slide 2", headline: "You Catch the Pattern in Real Time", subtext: "In the actual moment it fires. Not three days later in your journal." },
+          { label: "Slide 3", headline: "Decisions Get Simpler", subtext: "You can feel the difference between your real answer and your type’s automatic override." },
+          { label: "Slide 4", headline: "The Research Loop Stops", subtext: "No more quizzes, books, or podcast deep-dives about your number. You have the map." },
+          { label: "Slide 5", headline: "You Hear Your Own Voice Again", subtext: "The one that was always there, underneath the second-guessing." },
+          { label: "CTA", headline: "Start With Your Real Type", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "When did you last make a decision without polling anyone first?\n\n📌 Save this if you’ve been typed before and thought “okay, now what?”\n\nKnowing your type was never the goal. Here’s what actually changes once you have the right one:\n\nYou catch the pattern while it’s happening. In the actual moment your system fires its automatic response, you see it.\n\nDecisions get clearer. You can feel the difference between what you actually want and what your type’s override is pushing you toward.\n\nThe research loop stops. You have the map. No more quizzes, no more books, no more podcast episodes about your number.\n\nAnd underneath all of that, something quieter: your own voice comes back. The one that was always there, underneath the analysis and the second-guessing.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Integration doesn’t look dramatic from the outside. It looks like ordering what you want at dinner without polling the table first. It looks like saying no once and letting it stand.\n\nFollow @TheTypedTarot for more on life after the research loop.\n\n#Enneagram #EnneagramTyping #TypedTarot #PersonalGrowth #SelfTrust #InnerKnowing #EnneagramJourney #SelfAwareness #Integration",
+        imagePrompt: "Please generate a 4:5, 6-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"After You Know Your Real Type\" Subline: \"What actually changes. Swipe.\"\nSLIDE 2: Headline: \"You Catch the Pattern in Real Time\" Subtext: \"In the actual moment it fires. Not three days later in your journal.\"\nSLIDE 3: Headline: \"Decisions Get Simpler\" Subtext: \"You can feel the difference between your real answer and your type’s automatic override.\"\nSLIDE 4: Headline: \"The Research Loop Stops\" Subtext: \"No more quizzes, books, or podcast deep-dives about your number. You have the map.\"\nSLIDE 5: Headline: \"You Hear Your Own Voice Again\" Subtext: \"The one that was always there, underneath the second-guessing.\"\nSLIDE 6 (CTA): Headline: \"Start With Your Real Type\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 10, type: "typing", typeLabel: "Typing Session", format: "Single Image",
+        pillar: "Tarot Through the Nine Types",
+        hook: "What’s the question you keep asking yourself that never stays answered?",
+        graphicHeadline: "One question. On repeat.",
+        slides: null,
+        caption: "What’s the question you keep asking yourself that never stays answered?\n\n📌 Save this if you already know which question is yours.\n\nIt sounds different for everyone. “Am I making the right choice?” “Am I being too much?” “What if I’m wrong about this?” “Do they actually need me, or just what I do for them?”\n\nUnderneath the specific words, each Enneagram type is asking the same question on repeat. A core doubt that drives the research, the polling, the overthinking, the pro/con lists that never produce a winner.\n\nWhen you know your real type, you hear the question for what it is. You recognize it when it starts running. And you finally get to believe your own answer, which is the part that changes your week, your relationships, and your decisions.\n\nThat’s what a typing session gives you. Your relationship to the question changes, and everything downstream changes with it.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ You don’t need to know which question is yours before booking. That’s what we find together.\n\nFollow @TheTypedTarot for decisions that stick the first time.\n\n#Enneagram #EnneagramTyping #TypedTarot #SelfAwareness #InnerKnowing #SelfTrust #EnneagramTypes #Overthinking #PersonalGrowth",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"One question. On repeat.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 11, type: "freebie", typeLabel: "Freebie", format: "Single Image",
+        pillar: "From Insight to Integration", borderClass: "border-freebie",
+        hook: "Do you know how your self-trust actually talks to you?",
+        graphicHeadline: "Your inner knowing has a language.",
+        slides: null,
+        caption: "Do you know how your self-trust actually talks to you?\n\n📌 Save this if you’ve ever had the right answer and then immediately gone looking for someone else’s opinion.\n\nYour inner knowing has a specific way of showing up. For some women it’s a quiet clarity that only arrives in stillness. For others it’s a physical feeling: expansion, relief, tension releasing. For others it’s remembering the times they were already right.\n\nThe signal has been there your whole life. Most of us stopped recognizing it because something louder took over.\n\nThe Discover Your Self-Trust Language quiz takes about two minutes. You get your specific language, the signs that you’re connected to it, what makes it harder to hear, and one practice for coming back to it.\n\n→ Take the quiz: [quiz link in bio]\nDM me “QUIZ” and I’ll send you the link.\n\n✦ The quiz reveals the doorway back to your own knowing. The natural next question it creates (“I hear it... so why do I keep overriding it?”) is what we answer together in a session.\n\nFollow @TheTypedTarot for the signal your overthinking keeps drowning out.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #TarotReading #SelfAwareness",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"Your inner knowing has a language.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 12, type: "freebie", typeLabel: "Freebie", format: "Carousel",
+        pillar: "Recognize Your Pattern", borderClass: "border-freebie",
+        hook: "Which of these sounds like you when you actually trust yourself?",
+        slides: [
+          { label: "Cover", headline: "5 Ways Your Self-Trust Talks to You", subtext: "Yours is one of them. Swipe." },
+          { label: "Slide 2", headline: "Inner Clarity", subtext: "You trust yourself when you have quiet space to hear what you genuinely think." },
+          { label: "Slide 3", headline: "Embodied Knowing", subtext: "You trust through physical cues: expansion when it’s right, tension when it’s not." },
+          { label: "Slide 4", headline: "Personal Evidence", subtext: "You trust when you remember that your instincts were already right before." },
+          { label: "Slide 5", headline: "Values Alignment", subtext: "You trust when a decision clearly reflects what matters most to you." },
+          { label: "Slide 6", headline: "Supported Reflection", subtext: "You trust when someone asks good questions without taking the decision away." },
+          { label: "CTA", headline: "Which One Is Yours?", subtext: "Take the quiz: link in bio. DM me ‘QUIZ’ for the link." }
+        ],
+        caption: "Which of these sounds like you when you actually trust yourself?\n\n📌 Save this if you want to find yours right now.\n\nYour self-trust has a language. A specific way it shows up when you’re actually connected to it.\n\nSome women get quiet clarity: the answer arrives when there’s enough stillness. Some feel it physically: relief, expansion, something settling. Some need to remember that they’ve been right before. Some need the decision to line up with what matters most. And some need one good question from someone who won’t try to answer it for them.\n\nEach of these is a real doorway back to your own knowing. The one that works for you has probably been working your whole life. You just stopped noticing.\n\nThe Discover Your Self-Trust Language quiz takes two minutes and tells you exactly which one is yours, plus what makes it harder to hear and how to get back to it.\n\n→ Take the quiz: [quiz link in bio]\nDM me “QUIZ” and I’ll send you the link.\n\n✦ You already have a trustworthy inner voice. The quiz doesn’t create anything new. It helps you recognize the one that’s been there.\n\nFollow @TheTypedTarot for your clearest way back to your own knowing.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #SelfDiscovery #SelfAwareness",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"5 Ways Your Self-Trust Talks to You\" Subline: \"Yours is one of them. Swipe.\"\nSLIDE 2: Headline: \"Inner Clarity\" Subtext: \"You trust yourself when you have quiet space to hear what you genuinely think.\"\nSLIDE 3: Headline: \"Embodied Knowing\" Subtext: \"You trust through physical cues: expansion when it’s right, tension when it’s not.\"\nSLIDE 4: Headline: \"Personal Evidence\" Subtext: \"You trust when you remember that your instincts were already right before.\"\nSLIDE 5: Headline: \"Values Alignment\" Subtext: \"You trust when a decision clearly reflects what matters most to you.\"\nSLIDE 6: Headline: \"Supported Reflection\" Subtext: \"You trust when someone asks good questions without taking the decision away.\"\nSLIDE 7 (CTA): Headline: \"Which One Is Yours?\" Subtext: \"Take the quiz: link in bio. DM me ‘QUIZ’ for the link.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      }
+    ];
+
+    var TOTAL = posts.length;
+
+    function getTypeClass(t) {
+      if (t === "launch") return "tag-launch";
+      if (t === "signature") return "tag-signature";
+      if (t === "freebie") return "tag-freebie";
+      return "tag-typing";
+    }
+
+    function esc(s) {
+      var d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function renderPost(p) {
+      var slidesHTML = "";
+      if (p.slides) {
+        slidesHTML =
+          '<div class="slides-section">' +
+            '<div class="slides-label">Carousel Slides</div>' +
+            '<div class="slides-row">' +
+              p.slides.map(function(s) {
+                return '<div class="slide-card">' +
+                  '<div class="slide-num">' + esc(s.label) + '</div>' +
+                  '<div class="slide-hl">' + esc(s.headline) + '</div>' +
+                  '<div class="slide-sub">' + esc(s.subtext) + '</div>' +
+                '</div>';
+              }).join("") +
+            '</div>' +
+          '</div>';
+      }
+
+      var graphicHTML = "";
+      if (p.graphicHeadline) {
+        graphicHTML =
+          '<div class="graphic-hl-section">' +
+            '<div class="graphic-hl-label">Graphic Headline</div>' +
+            '<div class="graphic-hl-text">' + esc(p.graphicHeadline) + '</div>' +
+          '</div>';
+      }
+
+      var borderExtra = p.borderClass ? " " + p.borderClass : "";
+
+      return '<div class="post-card' + borderExtra + '" data-post="' + p.num + '">' +
+        '<div class="post-card-inner">' +
+          '<div class="post-top">' +
+            '<span class="post-num">Post ' + String(p.num).padStart(2, "0") + ' of ' + TOTAL + '</span>' +
+            '<div class="tags">' +
+              '<span class="tag ' + getTypeClass(p.type) + '">' + esc(p.typeLabel) + '</span>' +
+              '<span class="tag tag-format">' + esc(p.format) + '</span>' +
+              '<span class="tag tag-pillar">' + esc(p.pillar) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="hook-section">' +
+            '<div class="hook-label">Hook</div>' +
+            '<div class="hook-text">' + esc(p.hook) + '</div>' +
+          '</div>' +
+          graphicHTML +
+          slidesHTML +
+        '</div>' +
+        '<button class="section-bar" onclick="toggle(this)" data-t="cap-' + p.num + '">' +
+          '<span>Full Caption</span><span class="arr">▼</span>' +
+        '</button>' +
+        '<div class="collapse-body" id="cap-' + p.num + '">' +
+          '<div class="caption-text">' + esc(p.caption) + '</div>' +
+          '<div class="section-actions">' +
+            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,' + (p.num - 1) + ',\'caption\')">Copy Caption</button>' +
+          '</div>' +
+        '</div>' +
+        '<button class="section-bar" onclick="toggle(this)" data-t="prm-' + p.num + '">' +
+          '<span>ChatGPT Image Prompt</span><span class="arr">▼</span>' +
+        '</button>' +
+        '<div class="collapse-body" id="prm-' + p.num + '">' +
+          '<div class="prompt-box">' + esc(p.imagePrompt) + '</div>' +
+          '<div class="section-actions">' +
+            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,' + (p.num - 1) + ',\'imagePrompt\')">Copy Prompt</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function toggle(btn) {
+      var el = document.getElementById(btn.getAttribute("data-t"));
+      btn.classList.toggle("open");
+      el.classList.toggle("open");
+    }
+
+    function copyTxt(btn, idx, field) {
+      var text = posts[idx][field];
+      navigator.clipboard.writeText(text).then(function() {
+        var orig = btn.textContent;
+        btn.textContent = "Copied";
+        btn.classList.add("btn-success");
+        setTimeout(function() {
+          btn.textContent = orig;
+          btn.classList.remove("btn-success");
+        }, 1400);
+      });
+    }
+
+    function expandAll() {
+      var bars = document.querySelectorAll(".section-bar");
+      for (var i = 0; i < bars.length; i++) {
+        bars[i].classList.add("open");
+        document.getElementById(bars[i].getAttribute("data-t")).classList.add("open");
+      }
+    }
+
+    function collapseAll() {
+      var bars = document.querySelectorAll(".section-bar");
+      for (var i = 0; i < bars.length; i++) {
+        bars[i].classList.remove("open");
+        document.getElementById(bars[i].getAttribute("data-t")).classList.remove("open");
+      }
+    }
+
+    function exportAll() {
+      var t = "TYPED TAROT CONTENT KIT — 12 POSTS\n";
+      t += "==================================================\n\n";
+      t += "Handle: @TheTypedTarot\n";
+      t += "Discover booking link: " + DISCOVER_LINK + "\n";
+      t += "Develop booking link: " + DEVELOP_LINK + "\n";
+      t += "Quiz link: [swap in when live]\n";
+      t += "Image prompts: Upload your Typed Tarot brand style reference to ChatGPT before using\n";
+      t += "FB vs IG: Booking URLs work in FB captions. For IG, put the link in your bio.\n\n";
+
+      for (var i = 0; i < posts.length; i++) {
+        var p = posts[i];
+        t += "——————————————————————————————————————————————————\n";
+        t += "POST " + String(p.num).padStart(2, "0") + " | " + p.typeLabel + " | " + p.format + " | " + p.pillar + "\n";
+        t += "——————————————————————————————————————————————————\n\n";
+        t += "HOOK:\n" + p.hook + "\n\n";
+        if (p.graphicHeadline) t += "GRAPHIC HEADLINE:\n" + p.graphicHeadline + "\n\n";
+        if (p.slides) {
+          t += "SLIDES:\n";
+          for (var j = 0; j < p.slides.length; j++) {
+            t += "  " + p.slides[j].label + ": " + p.slides[j].headline + "\n";
+            t += "    " + p.slides[j].subtext + "\n";
+          }
+          t += "\n";
+        }
+        t += "CAPTION:\n" + p.caption + "\n\n";
+        t += "CHATGPT IMAGE PROMPT:\n" + p.imagePrompt + "\n\n\n";
+      }
+
+      var blob = new Blob([t], { type: "text/plain" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "typed-tarot-content-kit-12-posts.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById("posts").innerHTML = posts.map(renderPost).join("");
+  </script>
+</body>
+</html>
