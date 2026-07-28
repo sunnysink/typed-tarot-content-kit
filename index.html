@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typed Tarot Content Kit &mdash; 12 Posts</title>
+  <title>Typed Tarot Content Kit &mdash; 22 Posts</title>
   <style>
     :root {
       --bg: #F5F0EB;
@@ -230,9 +230,106 @@
       letter-spacing: .1em;
     }
 
+    /* ── Batch tabs ── */
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 34px 0 0;
+    }
+
+    .tab-btn {
+      font-family: var(--typed);
+      font-size: .74rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 12px 20px 10px;
+      background: transparent;
+      color: var(--tx-soft);
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+
+    .tab-btn:hover { color: var(--acc-tx); border-color: var(--line-strong); }
+
+    .tab-btn.active {
+      background: var(--panel);
+      color: var(--tx-strong);
+      border-color: var(--line);
+      border-bottom-color: var(--acc);
+    }
+
+    .tab-btn .tab-count {
+      display: block;
+      font-size: .62rem;
+      letter-spacing: .1em;
+      color: var(--tx-soft);
+      margin-top: 3px;
+    }
+
+    .batch-note {
+      font-family: var(--typed);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--tx-soft);
+      text-align: center;
+      margin: 22px auto 0;
+      max-width: 560px;
+      line-height: 1.9;
+    }
+
+    .progress-line {
+      font-family: var(--typed);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--acc-tx);
+      text-align: center;
+      margin-top: 10px;
+    }
+
     /* ── Post cards ── */
 
     .posts-section { padding: 48px 0 64px; }
+    .posts-section[hidden] { display: none; }
+
+    /* ── Posted checkbox ── */
+
+    .post-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .post-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--typed);
+      font-size: .66rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--tx-soft);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .post-check input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--grn);
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .post-card.is-posted { border-top-color: var(--grn); }
+    .post-card.is-posted .post-card-inner { opacity: .55; }
+    .post-card.is-posted .post-check { color: var(--grn); }
 
     .post-card {
       background: var(--panel);
@@ -464,27 +561,40 @@
     <header class="kit-header">
       <p class="eyebrow">A Forge Session Bonus</p>
       <h1 class="kit-title">Your Content Kit</h1>
-      <p class="kit-subtitle">12 posts, ready to light</p>
+      <p class="kit-subtitle">22 posts, ready to light</p>
       <div class="rule" aria-hidden="true">&#10022;</div>
 
       <div class="notes-scrap">
         <ul>
           <li><strong>Handle:</strong> @TheTypedTarot</li>
           <li><strong>Booking links are live.</strong> Discover + Develop links are baked into every CTA.</li>
-          <li><strong>Quiz link:</strong> Swap "[quiz link in bio]" once your quiz landing page is live.</li>
+          <li><strong>Quiz posts:</strong> All quiz CTAs say DM me “QUIZ” for now. When your quiz has a live link, tell Sunny and she'll wire it into all four quiz posts.</li>
           <li><strong>Images:</strong> Upload your brand reference to ChatGPT, then paste the prompts below. <a href="https://www.loom.com/share/b346f96fbdaa42eb8e0ef8da500c1c55" target="_blank" rel="noopener" style="color:var(--acc-tx);text-decoration:underline;">Watch the walkthrough here.</a></li>
           <li><strong>FB vs IG:</strong> The booking URLs work in FB captions. For IG, put the link in your bio and swap the URL line for "link in bio."</li>
         </ul>
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-amber" onclick="exportAll()">Download All (.txt)</button>
+        <button class="btn btn-amber" onclick="exportAll()">Download This Batch (.txt)</button>
         <button class="btn btn-ghost" onclick="expandAll()">Expand All</button>
         <button class="btn btn-ghost" onclick="collapseAll()">Collapse All</button>
       </div>
+
+      <nav class="tabs" role="tablist" aria-label="Content batches">
+        <button class="tab-btn active" id="tab-b1" role="tab" aria-selected="true" aria-controls="posts-b1" onclick="showBatch('b1')">
+          Batch One<span class="tab-count">12 posts</span>
+        </button>
+        <button class="tab-btn" id="tab-b2" role="tab" aria-selected="false" aria-controls="posts-b2" onclick="showBatch('b2')">
+          Batch Two<span class="tab-count">10 posts</span>
+        </button>
+      </nav>
+
+      <p class="batch-note" id="batchNote"></p>
+      <p class="progress-line" id="progressLine"></p>
     </header>
 
-    <section class="posts-section" id="posts"></section>
+    <section class="posts-section" id="posts-b1" role="tabpanel" aria-labelledby="tab-b1"></section>
+    <section class="posts-section" id="posts-b2" role="tabpanel" aria-labelledby="tab-b2" hidden></section>
 
     <footer class="kit-footer">
       <div class="rule" aria-hidden="true">&#10022;</div>
@@ -621,7 +731,7 @@
         hook: "Do you know how your self-trust actually talks to you?",
         graphicHeadline: "Your inner knowing has a language.",
         slides: null,
-        caption: "Do you know how your self-trust actually talks to you?\n\n📌 Save this if you’ve ever had the right answer and then immediately gone looking for someone else’s opinion.\n\nYour inner knowing has a specific way of showing up. For some women it’s a quiet clarity that only arrives in stillness. For others it’s a physical feeling: expansion, relief, tension releasing. For others it’s remembering the times they were already right.\n\nThe signal has been there your whole life. Most of us stopped recognizing it because something louder took over.\n\nThe Discover Your Self-Trust Language quiz takes about two minutes. You get your specific language, the signs that you’re connected to it, what makes it harder to hear, and one practice for coming back to it.\n\n→ Take the quiz: [quiz link in bio]\nDM me “QUIZ” and I’ll send you the link.\n\n✦ The quiz reveals the doorway back to your own knowing. The natural next question it creates (“I hear it... so why do I keep overriding it?”) is what we answer together in a session.\n\nFollow @TheTypedTarot for the signal your overthinking keeps drowning out.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #TarotReading #SelfAwareness",
+        caption: "Do you know how your self-trust actually talks to you?\n\n📌 Save this if you’ve ever had the right answer and then immediately gone looking for someone else’s opinion.\n\nYour inner knowing has a specific way of showing up. For some women it’s a quiet clarity that only arrives in stillness. For others it’s a physical feeling: expansion, relief, tension releasing. For others it’s remembering the times they were already right.\n\nThe signal has been there your whole life. Most of us stopped recognizing it because something louder took over.\n\nThe Discover Your Self-Trust Language quiz takes about two minutes. You get your specific language, the signs that you’re connected to it, what makes it harder to hear, and one practice for coming back to it.\n\n→ DM me “QUIZ” and I’ll send the quiz straight to you.\n\n✦ The quiz reveals the doorway back to your own knowing. The natural next question it creates (“I hear it... so why do I keep overriding it?”) is what we answer together in a session.\n\nFollow @TheTypedTarot for the signal your overthinking keeps drowning out.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #TarotReading #SelfAwareness",
         imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"Your inner knowing has a language.\" Include @TheTypedTarot at the bottom of the graphic."
       },
       {
@@ -635,14 +745,160 @@
           { label: "Slide 4", headline: "Personal Evidence", subtext: "You trust when you remember that your instincts were already right before." },
           { label: "Slide 5", headline: "Values Alignment", subtext: "You trust when a decision clearly reflects what matters most to you." },
           { label: "Slide 6", headline: "Supported Reflection", subtext: "You trust when someone asks good questions without taking the decision away." },
-          { label: "CTA", headline: "Which One Is Yours?", subtext: "Take the quiz: link in bio. DM me ‘QUIZ’ for the link." }
+          { label: "CTA", headline: "Which One Is Yours?", subtext: "DM me ‘QUIZ’ and I’ll send you the quiz." }
         ],
-        caption: "Which of these sounds like you when you actually trust yourself?\n\n📌 Save this if you want to find yours right now.\n\nYour self-trust has a language. A specific way it shows up when you’re actually connected to it.\n\nSome women get quiet clarity: the answer arrives when there’s enough stillness. Some feel it physically: relief, expansion, something settling. Some need to remember that they’ve been right before. Some need the decision to line up with what matters most. And some need one good question from someone who won’t try to answer it for them.\n\nEach of these is a real doorway back to your own knowing. The one that works for you has probably been working your whole life. You just stopped noticing.\n\nThe Discover Your Self-Trust Language quiz takes two minutes and tells you exactly which one is yours, plus what makes it harder to hear and how to get back to it.\n\n→ Take the quiz: [quiz link in bio]\nDM me “QUIZ” and I’ll send you the link.\n\n✦ You already have a trustworthy inner voice. The quiz doesn’t create anything new. It helps you recognize the one that’s been there.\n\nFollow @TheTypedTarot for your clearest way back to your own knowing.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #SelfDiscovery #SelfAwareness",
-        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"5 Ways Your Self-Trust Talks to You\" Subline: \"Yours is one of them. Swipe.\"\nSLIDE 2: Headline: \"Inner Clarity\" Subtext: \"You trust yourself when you have quiet space to hear what you genuinely think.\"\nSLIDE 3: Headline: \"Embodied Knowing\" Subtext: \"You trust through physical cues: expansion when it’s right, tension when it’s not.\"\nSLIDE 4: Headline: \"Personal Evidence\" Subtext: \"You trust when you remember that your instincts were already right before.\"\nSLIDE 5: Headline: \"Values Alignment\" Subtext: \"You trust when a decision clearly reflects what matters most to you.\"\nSLIDE 6: Headline: \"Supported Reflection\" Subtext: \"You trust when someone asks good questions without taking the decision away.\"\nSLIDE 7 (CTA): Headline: \"Which One Is Yours?\" Subtext: \"Take the quiz: link in bio. DM me ‘QUIZ’ for the link.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+        caption: "Which of these sounds like you when you actually trust yourself?\n\n📌 Save this if you want to find yours right now.\n\nYour self-trust has a language. A specific way it shows up when you’re actually connected to it.\n\nSome women get quiet clarity: the answer arrives when there’s enough stillness. Some feel it physically: relief, expansion, something settling. Some need to remember that they’ve been right before. Some need the decision to line up with what matters most. And some need one good question from someone who won’t try to answer it for them.\n\nEach of these is a real doorway back to your own knowing. The one that works for you has probably been working your whole life. You just stopped noticing.\n\nThe Discover Your Self-Trust Language quiz takes two minutes and tells you exactly which one is yours, plus what makes it harder to hear and how to get back to it.\n\n→ DM me “QUIZ” and I’ll send the quiz straight to you.\n\n✦ You already have a trustworthy inner voice. The quiz doesn’t create anything new. It helps you recognize the one that’s been there.\n\nFollow @TheTypedTarot for your clearest way back to your own knowing.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #SelfTrustLanguage #FreeQuiz #PersonalGrowth #SelfDiscovery #SelfAwareness",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"5 Ways Your Self-Trust Talks to You\" Subline: \"Yours is one of them. Swipe.\"\nSLIDE 2: Headline: \"Inner Clarity\" Subtext: \"You trust yourself when you have quiet space to hear what you genuinely think.\"\nSLIDE 3: Headline: \"Embodied Knowing\" Subtext: \"You trust through physical cues: expansion when it’s right, tension when it’s not.\"\nSLIDE 4: Headline: \"Personal Evidence\" Subtext: \"You trust when you remember that your instincts were already right before.\"\nSLIDE 5: Headline: \"Values Alignment\" Subtext: \"You trust when a decision clearly reflects what matters most to you.\"\nSLIDE 6: Headline: \"Supported Reflection\" Subtext: \"You trust when someone asks good questions without taking the decision away.\"\nSLIDE 7 (CTA): Headline: \"Which One Is Yours?\" Subtext: \"DM me ‘QUIZ’ and I’ll send you the quiz.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
       }
     ];
 
-    var TOTAL = posts.length;
+    var postsB2 = [
+      {
+        num: 1, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "Relationships & Communication",
+        hook: "What do you do when you need reassurance and can’t bring yourself to ask for it?",
+        slides: [
+          { label: "Cover", headline: "How You Ask for Reassurance Without Asking", subtext: "Your version is in here. Swipe." },
+          { label: "Slide 2", headline: "You Reread the Message", subtext: "Checking tone. Counting words. Looking for a temperature change you think you found." },
+          { label: "Slide 3", headline: "You Ask Something You Already Know", subtext: "It sounds like logistics. It’s really a check that you’re still okay with them." },
+          { label: "Slide 4", headline: "You Go Be Useful", subtext: "Helping is easier than saying out loud that you need something." },
+          { label: "Slide 5", headline: "You Go Quiet and Wait", subtext: "If she comes looking for you, that counts as proof." },
+          { label: "Slide 6", headline: "Same Ask. Four Outfits.", subtext: "Your type picked which one you wear." },
+          { label: "CTA", headline: "Find Out Which One Is Yours", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "What do you do when you need reassurance and can’t bring yourself to ask for it?\n\n📌 Save this if you’ve ever reread a text four times looking for a tone that was never in it.\n\nPicture asking directly. “Are we okay?” Five words, out loud, and then an actual answer in the same minute.\n\nThat’s available to you. Getting there starts with catching the version you run now.\n\nSome women reread the message and audit it for temperature. Some ask a logistics question they already know the answer to, just to hear the voice come back warm. Some go find something helpful to do, because being useful feels safer than saying “I need something.” Some go quiet and wait to be noticed, because if she comes looking, that counts as proof.\n\nEvery one of those is the same ask wearing a different outfit. Your Enneagram type picked the outfit a long time ago.\n\nOnce you can name yours, you catch it mid-move. The plain version of the question becomes possible, because you finally know what you’re actually asking for.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ The indirect ask usually works. That’s why it sticks around. It gets you a version of the reassurance while keeping you safe from having wanted it out loud.\n\nFollow @TheTypedTarot for the words that go where the hinting used to.\n\n#Enneagram #Relationships #TypedTarot #EnneagramInRelationships #SelfTrust #AttachmentPatterns #CommunicationStyles #Type2 #Type6 #Type9",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"How You Ask for Reassurance Without Asking\" Subline: \"Your version is in here. Swipe.\"\nSLIDE 2: Headline: \"You Reread the Message\" Subtext: \"Checking tone. Counting words. Looking for a temperature change you think you found.\"\nSLIDE 3: Headline: \"You Ask Something You Already Know\" Subtext: \"It sounds like logistics. It’s really a check that you’re still okay with them.\"\nSLIDE 4: Headline: \"You Go Be Useful\" Subtext: \"Helping is easier than saying out loud that you need something.\"\nSLIDE 5: Headline: \"You Go Quiet and Wait\" Subtext: \"If she comes looking for you, that counts as proof.\"\nSLIDE 6: Headline: \"Same Ask. Four Outfits.\" Subtext: \"Your type picked which one you wear.\"\nSLIDE 7 (CTA): Headline: \"Find Out Which One Is Yours\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 2, type: "typing", typeLabel: "Typing Session", format: "Single Image",
+        pillar: "Relationships & Communication",
+        hook: "What would someone have to say for you to feel actually seen in the middle of a hard conversation?",
+        graphicHeadline: "What makes you feel seen mid-argument?",
+        slides: null,
+        caption: "What would someone have to say for you to feel actually seen in the middle of a hard conversation?\n\n📌 Save this if you’ve walked away from a resolved conversation still feeling unmet.\n\nHere’s what changes once you know your answer: you can tell the person. One sentence, early, before it goes sideways. And they can actually give it to you.\n\nRight now most of us are running a private test nobody was told about.\n\nOne woman needs to hear that she’s still liked, separately from the disagreement. Another needs her reasoning acknowledged before any solution gets proposed. Another needs the whole thing to slow down enough that she can locate her own position. Another needs one honest sentence with no cushioning around it.\n\nEvery one of those is reasonable. Every one of them is also unspoken, which leaves the person across from you guessing, and usually guessing wrong.\n\nYour Enneagram type is where that need comes from. When you can name it, you stop testing people and start telling them.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Most people can name what makes them feel unseen much faster than what makes them feel seen. Both point at the same thing. Start with whichever one comes easier.\n\nFollow @TheTypedTarot for hard conversations that end with you feeling met.\n\n#Enneagram #Relationships #TypedTarot #CommunicationStyles #ConflictResolution #EnneagramInRelationships #SelfAwareness #Type1 #Type4 #Type5",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"What makes you feel seen mid-argument?\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 3, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "Relationships & Communication",
+        hook: "In your last argument, how sure were you that you were reading the situation correctly?",
+        slides: [
+          { label: "Cover", headline: "Conflict When You Don’t Trust Your Own Read", subtext: "Why the same fight keeps coming back. Swipe." },
+          { label: "Slide 2", headline: "You Concede Early", subtext: "Agreeing costs less than defending a read you’re unsure about." },
+          { label: "Slide 3", headline: "You Over-Explain", subtext: "Enough context, and maybe she’ll confirm you’re allowed to feel this." },
+          { label: "Slide 4", headline: "You Go Cold", subtext: "Distance buys time to work out what you actually think." },
+          { label: "Slide 5", headline: "You Push Harder", subtext: "Pressure is one way to find out whether your read holds." },
+          { label: "Slide 6", headline: "Then You Replay It for Three Days", subtext: "Hunting for evidence that you were allowed to be upset." },
+          { label: "CTA", headline: "Your Type Chose Your Move", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "In your last argument, how sure were you that you were reading the situation correctly?\n\n📌 Save this if you spent the next three days replaying it.\n\nThe version worth having: you say what you saw, you hold it while you listen, and the conversation ends when it ends. No replay loop. No hunting for evidence that you were allowed to be upset.\n\nWhat sits between you and that is a doubt arriving faster than the argument does.\n\nSome women concede early, because agreeing costs less than defending a read they’re unsure about. Some over-explain, hoping enough context gets their feeling confirmed. Some go cold and buy time. Some push harder to find out whether the read holds up under pressure.\n\nFour different moves, one shared source. When you can’t trust your own read of what just happened, you hand the verdict to the person you’re in conflict with.\n\nYour Enneagram type picked your move a long time ago. Naming it is how you get a choice about it.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Notice which move you make with your partner and which one you make at work. Same doubt, different stakes. The pair of them together says a lot about your number.\n\nFollow @TheTypedTarot for arguments that stop living in your head afterward.\n\n#Enneagram #ConflictResolution #TypedTarot #Relationships #EnneagramInRelationships #SelfTrust #CommunicationStyles #Type3 #Type8 #Type9",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"Conflict When You Don’t Trust Your Own Read\" Subline: \"Why the same fight keeps coming back. Swipe.\"\nSLIDE 2: Headline: \"You Concede Early\" Subtext: \"Agreeing costs less than defending a read you’re unsure about.\"\nSLIDE 3: Headline: \"You Over-Explain\" Subtext: \"Enough context, and maybe she’ll confirm you’re allowed to feel this.\"\nSLIDE 4: Headline: \"You Go Cold\" Subtext: \"Distance buys time to work out what you actually think.\"\nSLIDE 5: Headline: \"You Push Harder\" Subtext: \"Pressure is one way to find out whether your read holds.\"\nSLIDE 6: Headline: \"Then You Replay It for Three Days\" Subtext: \"Hunting for evidence that you were allowed to be upset.\"\nSLIDE 7 (CTA): Headline: \"Your Type Chose Your Move\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 4, type: "signature", typeLabel: "Signature Session", format: "Single Image",
+        pillar: "Relationships & Communication", borderClass: "border-gold",
+        hook: "How many times have you rehearsed the boundary you still haven’t said out loud?",
+        graphicHeadline: "The boundary you keep rehearsing.",
+        slides: null,
+        caption: "How many times have you rehearsed the boundary you still haven’t said out loud?\n\n📌 Save this if you know exactly which one I mean.\n\nYou have the words. You’ve had them for months. You’ve said them in the car, in the shower, to a friend who agreed with you completely.\n\nThen you’re in the room with her and something quieter takes the wheel. You soften it. You add a qualifier. You decide today isn’t the day.\n\nHere’s what a Develop session does with that. We take the boundary you keep almost setting and find the exact moment it turns into an almost. Your Enneagram type tells us what the softening is protecting. Tarot slows that moment down enough for your real position to arrive first, in your own words, before the qualifier shows up.\n\nYou leave with the sentence you’re actually going to say, and a clear read on what happens in you right before you swallow it.\n\n→ Book Develop: Where the Map Ends ($60, 1 hr): " + DEVELOP_LINK + "\nOr DM me “DEVELOP”\n\n✦ The rehearsal counts for something. It means your position is already settled. The work lives in the two seconds where you hand it back.\n\nFollow @TheTypedTarot for the sentence you finally say out loud.\n\n#Enneagram #Boundaries #TypedTarot #SelfTrust #ThePatternBeneath #Relationships #TarotReading #EnneagramCoaching #InnerKnowing",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"The boundary you keep rehearsing.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 5, type: "typing", typeLabel: "Typing Session", format: "Single Image",
+        pillar: "Recognize Your Pattern",
+        hook: "What was the sentence you actually meant, before you softened it?",
+        graphicHeadline: "The pause before you soften it.",
+        slides: null,
+        caption: "What was the sentence you actually meant, before you softened it?\n\n📌 Save this if you’ve heard the softened version leave your mouth and thought, that was close.\n\nThere’s a pause. Half a second, sometimes less. The real sentence is fully formed, and then something edits it on the way out.\n\n“I want this” becomes “I was thinking maybe.”\n“That doesn’t work for me” becomes “I can probably make it work.”\n“I’m proud of this” becomes “it turned out okay, I guess.”\n\nThe edit is so fast it can feel like your personality. It’s also a pattern, and patterns have a shape you can learn.\n\nYour Enneagram type decides what gets edited and what the edit is protecting. Once you know, you start catching the pause while it’s happening. That’s the whole game. Catch the pause, and the unedited sentence is still right there.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Try this for a day: when you catch the softened version, say the real one right behind it. “I can probably make it work. Actually, that doesn’t work for me.” You’re allowed a second take.\n\nFollow @TheTypedTarot for saying it the way you meant it the first time.\n\n#Enneagram #EnneagramTyping #TypedTarot #SelfTrust #PeoplePleasing #InnerKnowing #SelfAwareness #PatternRecognition #Type2 #Type9",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"The pause before you soften it.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 6, type: "signature", typeLabel: "Signature Session", format: "Carousel",
+        pillar: "Recognize Your Pattern", borderClass: "border-gold",
+        hook: "How many angles have you looked at this decision from by now?",
+        slides: [
+          { label: "Cover", headline: "When More Analysis Stops Helping", subtext: "For the decision you’ve already thought to death. Swipe." },
+          { label: "Slide 2", headline: "You Have the Information", subtext: "Every angle. Every scenario. Two lists and a voice memo." },
+          { label: "Slide 3", headline: "More Thinking Adds Volume", subtext: "Each new angle gives you one more thing to weigh against the last one." },
+          { label: "Slide 4", headline: "Your Answer Showed Up Early", subtext: "Usually in the first ten minutes, before the research started." },
+          { label: "Slide 5", headline: "Trusting It Is a Different Job", subtext: "And it takes a different kind of hour than deciding does." },
+          { label: "CTA", headline: "Develop: Where the Map Ends ($60, 1 hr)", subtext: "DM me ‘DEVELOP’ or tap the link in bio." }
+        ],
+        caption: "How many angles have you looked at this decision from by now?\n\n📌 Save this if there’s a note in your phone with two columns and no conclusion.\n\nYou already have the information. Every angle, every scenario, and a friend who has heard about it four times.\n\nHere’s what usually turns out to be true: your answer showed up early. Somewhere in the first ten minutes, before the research started, you knew. Everything since then has been an audit of whether you’re allowed to want that.\n\nA Develop session is an hour built for exactly this. We find the moment your answer arrived and what happened in the seconds after it. Your Enneagram type names the specific audit you run. Tarot slows the whole thing down enough for your first response to come back into the room.\n\nYou leave having chosen. And with a way to tell the difference next time between thinking and stalling.\n\n→ Book Develop: Where the Map Ends ($60, 1 hr): " + DEVELOP_LINK + "\nOr DM me “DEVELOP”\n\n✦ A useful test: if one more piece of information arrived tomorrow, would it change your answer, or would you use it to keep the question open another week?\n\nFollow @TheTypedTarot for decisions that close.\n\n#Enneagram #Overthinking #TypedTarot #DecisionMaking #AnalysisParalysis #SelfTrust #ThePatternBeneath #TarotReading #InnerKnowing",
+        imagePrompt: "Please generate a 4:5, 6-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"When More Analysis Stops Helping\" Subline: \"For the decision you’ve already thought to death. Swipe.\"\nSLIDE 2: Headline: \"You Have the Information\" Subtext: \"Every angle. Every scenario. Two lists and a voice memo.\"\nSLIDE 3: Headline: \"More Thinking Adds Volume\" Subtext: \"Each new angle gives you one more thing to weigh against the last one.\"\nSLIDE 4: Headline: \"Your Answer Showed Up Early\" Subtext: \"Usually in the first ten minutes, before the research started.\"\nSLIDE 5: Headline: \"Trusting It Is a Different Job\" Subtext: \"And it takes a different kind of hour than deciding does.\"\nSLIDE 6 (CTA): Headline: \"Develop: Where the Map Ends ($60, 1 hr)\" Subtext: \"DM me ‘DEVELOP’ or tap the link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 7, type: "freebie", typeLabel: "Freebie", format: "Single Image",
+        pillar: "Recognize Your Pattern", borderClass: "border-freebie",
+        hook: "Has all the self-knowledge made your second-guessing more convincing?",
+        graphicHeadline: "Your second-guessing got smarter.",
+        slides: null,
+        caption: "Has all the self-knowledge made your second-guessing more convincing?\n\n📌 Save this if your inner critic now speaks fluent therapy.\n\nYou have the books, the assessments, the years of paying attention. You can name your attachment style, your stress responses, and the exact reason you do the thing you do.\n\nSo when your answer arrives and you start talking yourself out of it, the argument is well sourced. “That’s probably my avoidance.” “I might be reacting from an old wound.” “Let me check whether this is intuition or fear.”\n\nEvery one of those is a good question. Asked at the right time, they open something up. Asked in the two seconds after your answer arrives, they bury it under review.\n\nThe missing piece is recognition. Hearing your own signal when it shows up, fast enough to act on it.\n\nThat’s what the Discover Your Self-Trust Language quiz is for. Two minutes, and you learn the specific way your knowing announces itself, what makes it hard to hear, and one practice for getting back to it.\n\n→ DM me “QUIZ” and I’ll send the quiz straight to you.\n\n✦ Insight and self-trust are two different muscles. Most of us trained one of them for a decade and assumed the other one was coming along with it.\n\nFollow @TheTypedTarot for knowing what your own yes sounds like.\n\n#Enneagram #SelfTrust #TypedTarot #InnerKnowing #Overthinking #SelfTrustLanguage #FreeQuiz #PersonalGrowth #SelfAwareness",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"Your second-guessing got smarter.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 8, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "Tarot Through the Nine Types",
+        hook: "When you doubt yourself, what does it actually sound like in your head?",
+        slides: [
+          { label: "Cover", headline: "Self-Doubt Has an Accent", subtext: "Find the one that sounds like your head. Swipe." },
+          { label: "Slide 2", headline: "“Is This Feeling Even Real?”", subtext: "You question the experience itself before you get anywhere near acting on it." },
+          { label: "Slide 3", headline: "“Wait, What Did I Want?”", subtext: "By the time you check, your preference has already gone quiet." },
+          { label: "Slide 4", headline: "“What If I’m Wrong About This?”", subtext: "You decide, and the second you decide, the case against it opens." },
+          { label: "Slide 5", headline: "“I Should Be Handling This Better”", subtext: "The doubt arrives dressed as a standard you’re failing." },
+          { label: "Slide 6", headline: "Same Doubt. Nine Accents.", subtext: "Recognizing yours is how you stop treating it as information." },
+          { label: "CTA", headline: "Which One Is Your Head?", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "When you doubt yourself, what does it actually sound like in your head?\n\n📌 Save this if you found your exact sentence in the slides.\n\nSelf-doubt has an accent. Yours has been running so long it sounds like plain thinking.\n\nFor one woman it’s “is this feeling even real, or am I making it bigger than it is.” For another it’s “hold on, what did I want,” because by the time she checks, her preference has gone quiet. For another it’s “what if I’m wrong,” arriving the instant she decides. For another it comes dressed as a standard: “I should be handling this better than I am.”\n\nSame mechanism underneath. Your Enneagram type set the accent.\n\nHere’s why that matters. Doubt that sounds like plain thinking gets treated as information. Doubt you can recognize gets treated as weather. It shows up, you clock it, you keep moving with your own answer.\n\nThat recognition is what a typing session builds. We find your number and the exact voice it doubts in, so you can hear it coming.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ Listen for the sentence that repeats. The specific words matter less than the fact that it says the same thing every time, in every part of your life.\n\nFollow @TheTypedTarot for hearing your doubt coming before it decides for you.\n\n#Enneagram #EnneagramTypes #TypedTarot #SelfDoubt #SelfTrust #InnerKnowing #EnneagramJourney #Type4 #Type6 #Type9",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"Self-Doubt Has an Accent\" Subline: \"Find the one that sounds like your head. Swipe.\"\nSLIDE 2: Headline: \"“Is This Feeling Even Real?”\" Subtext: \"You question the experience itself before you get anywhere near acting on it.\"\nSLIDE 3: Headline: \"“Wait, What Did I Want?”\" Subtext: \"By the time you check, your preference has already gone quiet.\"\nSLIDE 4: Headline: \"“What If I’m Wrong About This?”\" Subtext: \"You decide, and the second you decide, the case against it opens.\"\nSLIDE 5: Headline: \"“I Should Be Handling This Better”\" Subtext: \"The doubt arrives dressed as a standard you’re failing.\"\nSLIDE 6: Headline: \"Same Doubt. Nine Accents.\" Subtext: \"Recognizing yours is how you stop treating it as information.\"\nSLIDE 7 (CTA): Headline: \"Which One Is Your Head?\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      },
+      {
+        num: 9, type: "freebie", typeLabel: "Freebie", format: "Single Image",
+        pillar: "From Insight to Integration", borderClass: "border-freebie",
+        hook: "Want a journaling prompt that catches the override in the act?",
+        graphicHeadline: "One prompt. Ask it tonight.",
+        slides: null,
+        caption: "Want a journaling prompt that catches the override in the act?\n\n📌 Save this and use it tonight. It takes four minutes.\n\nHere it is:\n\n“What did I know today before I started thinking about it? And what did I do with it?”\n\nAnswer it for one thing that happened today. Something small. The dinner you agreed to. The email you rewrote six times. The plan you said yes to at half enthusiasm.\n\nRun it for a week and two things show up.\n\nFirst, you find out how often your first response was accurate. That’s evidence, and evidence is what self-trust gets built from.\n\nSecond, you start to see your handoff. The specific move you make when you pass your answer to someone else, or to more research, or to later. It looks the same every time once you’ve watched it four or five times on paper.\n\nThat’s the override, caught on the page while it’s still fresh.\n\n→ Want to know how your knowing announces itself in the first place? Take the Discover Your Self-Trust Language quiz. DM me “QUIZ” and I’ll send it straight to you.\n\n✦ Keep the entries to three lines. The pattern shows up in the pile, and long entries make the pile harder to read back.\n\nFollow @TheTypedTarot for practices that fit inside the day you already have.\n\n#Enneagram #JournalingPrompt #TypedTarot #SelfTrust #InnerKnowing #SelfTrustLanguage #FreeQuiz #JournalPrompts #PersonalGrowth",
+        imagePrompt: "Please generate a 4:5 image using the uploaded Typed Tarot brand style. Overlay the headline \"One prompt. Ask it tonight.\" Include @TheTypedTarot at the bottom of the graphic."
+      },
+      {
+        num: 10, type: "typing", typeLabel: "Typing Session", format: "Carousel",
+        pillar: "From Insight to Integration",
+        hook: "Your answer just arrived. What do you do with the next sixty seconds?",
+        slides: [
+          { label: "Cover", headline: "The Sixty Seconds After Your Answer Arrives", subtext: "A practice for the moment it counts. Swipe." },
+          { label: "Slide 2", headline: "0 to 10 Seconds: Say It", subtext: "Put the answer in plain words. Out loud if you have the privacy." },
+          { label: "Slide 3", headline: "10 to 30: Find Where It Landed", subtext: "Chest, stomach, throat, shoulders. Notice what your body did when you said it." },
+          { label: "Slide 4", headline: "30 to 45: Let the Objection Speak", subtext: "The first argument back is your override. Hear it out. Hold the action." },
+          { label: "Slide 5", headline: "45 to 60: Say It Again", subtext: "Same words. Notice whether it still holds after the objection had its turn." },
+          { label: "Slide 6", headline: "That’s the Whole Practice", subtext: "You just put sixty seconds between your knowing and your override." },
+          { label: "CTA", headline: "Want to Know Which Override Is Yours?", subtext: "Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio." }
+        ],
+        caption: "Your answer just arrived. What do you do with the next sixty seconds?\n\n📌 Save this for the next time you catch yourself mid-decision.\n\nThe override moves fast. Most days it gets to your answer before you’ve finished having it. Sixty seconds is enough to change that.\n\nSay the answer in plain words. Out loud if you have the privacy. Ten seconds.\n\nFind where it landed in your body. Chest, stomach, throat, shoulders. Twenty seconds.\n\nThen wait for the objection. It’s coming. Let it say its piece while you hold the action. Fifteen seconds.\n\nThen say the answer again, same words, and notice whether it still holds. Fifteen seconds.\n\nNothing gets decided in that minute. The minute exists to give your own answer a head start on the thing that usually buries it.\n\nDo it enough times and the head start becomes automatic.\n\n→ Book Discover: The Map + The Mirror ($45, 45 min): " + DISCOVER_LINK + "\nOr DM me “DISCOVER”\n\n✦ The objection is worth listening to. It’s protecting something real. It just does better work as a second opinion than as a first one.\n\nFollow @TheTypedTarot for practices that take one minute and hold up under pressure.\n\n#Enneagram #TypedTarot #SelfTrust #InnerKnowing #EmbodiedKnowing #SomaticPractice #PersonalGrowth #Integration #EnneagramJourney",
+        imagePrompt: "Please generate a 4:5, 7-slide Instagram carousel using the uploaded Typed Tarot brand style.\n\nSLIDE 1 (Cover): Headline: \"The Sixty Seconds After Your Answer Arrives\" Subline: \"A practice for the moment it counts. Swipe.\"\nSLIDE 2: Headline: \"0 to 10 Seconds: Say It\" Subtext: \"Put the answer in plain words. Out loud if you have the privacy.\"\nSLIDE 3: Headline: \"10 to 30: Find Where It Landed\" Subtext: \"Chest, stomach, throat, shoulders. Notice what your body did when you said it.\"\nSLIDE 4: Headline: \"30 to 45: Let the Objection Speak\" Subtext: \"The first argument back is your override. Hear it out. Hold the action.\"\nSLIDE 5: Headline: \"45 to 60: Say It Again\" Subtext: \"Same words. Notice whether it still holds after the objection had its turn.\"\nSLIDE 6: Headline: \"That’s the Whole Practice\" Subtext: \"You just put sixty seconds between your knowing and your override.\"\nSLIDE 7 (CTA): Headline: \"Want to Know Which Override Is Yours?\" Subtext: \"Discover: The Map + The Mirror ($45, 45 min). DM me ‘DISCOVER’ or link in bio.\"\n\nInclude @TheTypedTarot at the bottom of every slide. Add a right-arrow icon in the bottom corner of every slide except the CTA slide to signal swipe."
+      }
+    ];
+
+    var BATCHES = {
+      b1: {
+        key: "b1",
+        arr: posts,
+        label: "Batch One",
+        file: "typed-tarot-content-kit-batch-1.txt",
+        heading: "TYPED TAROT CONTENT KIT — BATCH ONE — 12 POSTS",
+        note: "Batch One. The original 12. Tick each post as you publish it and the check stays put next time you open this page."
+      },
+      b2: {
+        key: "b2",
+        arr: postsB2,
+        label: "Batch Two",
+        file: "typed-tarot-content-kit-batch-2.txt",
+        heading: "TYPED TAROT CONTENT KIT — BATCH TWO — 10 POSTS",
+        note: "Batch Two. Ten new posts, weighted toward relationships and communication. Nothing here repeats Batch One."
+      }
+    };
+
+    var activeBatch = "b1";
 
     function getTypeClass(t) {
       if (t === "launch") return "tag-launch";
@@ -657,7 +913,8 @@
       return d.innerHTML;
     }
 
-    function renderPost(p) {
+    function renderPost(p, key) {
+      var total = BATCHES[key].arr.length;
       var slidesHTML = "";
       if (p.slides) {
         slidesHTML =
@@ -685,11 +942,18 @@
       }
 
       var borderExtra = p.borderClass ? " " + p.borderClass : "";
+      var id = key + "-" + p.num;
 
-      return '<div class="post-card' + borderExtra + '" data-post="' + p.num + '">' +
+      return '<div class="post-card' + borderExtra + '" id="card-' + id + '" data-post="' + p.num + '">' +
         '<div class="post-card-inner">' +
           '<div class="post-top">' +
-            '<span class="post-num">Post ' + String(p.num).padStart(2, "0") + ' of ' + TOTAL + '</span>' +
+            '<div class="post-left">' +
+              '<label class="post-check">' +
+                '<input type="checkbox" id="chk-' + id + '" onchange="onCheck(\'' + key + '\',' + p.num + ',this)">' +
+                '<span>Posted</span>' +
+              '</label>' +
+              '<span class="post-num">Post ' + String(p.num).padStart(2, "0") + ' of ' + total + '</span>' +
+            '</div>' +
             '<div class="tags">' +
               '<span class="tag ' + getTypeClass(p.type) + '">' + esc(p.typeLabel) + '</span>' +
               '<span class="tag tag-format">' + esc(p.format) + '</span>' +
@@ -703,22 +967,22 @@
           graphicHTML +
           slidesHTML +
         '</div>' +
-        '<button class="section-bar" onclick="toggle(this)" data-t="cap-' + p.num + '">' +
+        '<button class="section-bar" onclick="toggle(this)" data-t="cap-' + id + '">' +
           '<span>Full Caption</span><span class="arr">▼</span>' +
         '</button>' +
-        '<div class="collapse-body" id="cap-' + p.num + '">' +
+        '<div class="collapse-body" id="cap-' + id + '">' +
           '<div class="caption-text">' + esc(p.caption) + '</div>' +
           '<div class="section-actions">' +
-            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,' + (p.num - 1) + ',\'caption\')">Copy Caption</button>' +
+            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,\'' + key + '\',' + (p.num - 1) + ',\'caption\')">Copy Caption</button>' +
           '</div>' +
         '</div>' +
-        '<button class="section-bar" onclick="toggle(this)" data-t="prm-' + p.num + '">' +
+        '<button class="section-bar" onclick="toggle(this)" data-t="prm-' + id + '">' +
           '<span>ChatGPT Image Prompt</span><span class="arr">▼</span>' +
         '</button>' +
-        '<div class="collapse-body" id="prm-' + p.num + '">' +
+        '<div class="collapse-body" id="prm-' + id + '">' +
           '<div class="prompt-box">' + esc(p.imagePrompt) + '</div>' +
           '<div class="section-actions">' +
-            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,' + (p.num - 1) + ',\'imagePrompt\')">Copy Prompt</button>' +
+            '<button class="btn btn-ghost btn-sm" onclick="copyTxt(this,\'' + key + '\',' + (p.num - 1) + ',\'imagePrompt\')">Copy Prompt</button>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -730,8 +994,8 @@
       el.classList.toggle("open");
     }
 
-    function copyTxt(btn, idx, field) {
-      var text = posts[idx][field];
+    function copyTxt(btn, key, idx, field) {
+      var text = BATCHES[key].arr[idx][field];
       navigator.clipboard.writeText(text).then(function() {
         var orig = btn.textContent;
         btn.textContent = "Copied";
@@ -744,7 +1008,7 @@
     }
 
     function expandAll() {
-      var bars = document.querySelectorAll(".section-bar");
+      var bars = document.querySelectorAll("#posts-" + activeBatch + " .section-bar");
       for (var i = 0; i < bars.length; i++) {
         bars[i].classList.add("open");
         document.getElementById(bars[i].getAttribute("data-t")).classList.add("open");
@@ -752,15 +1016,84 @@
     }
 
     function collapseAll() {
-      var bars = document.querySelectorAll(".section-bar");
+      var bars = document.querySelectorAll("#posts-" + activeBatch + " .section-bar");
       for (var i = 0; i < bars.length; i++) {
         bars[i].classList.remove("open");
         document.getElementById(bars[i].getAttribute("data-t")).classList.remove("open");
       }
     }
 
+    /* ── Posted checkboxes, saved per batch ── */
+
+    function storeKey(key) { return "typedTarotKit.posted." + key; }
+
+    function loadPosted(key) {
+      try {
+        var raw = window.localStorage.getItem(storeKey(key));
+        var arr = raw ? JSON.parse(raw) : [];
+        return Object.prototype.toString.call(arr) === "[object Array]" ? arr : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function savePosted(key, arr) {
+      try {
+        window.localStorage.setItem(storeKey(key), JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    function onCheck(key, num, box) {
+      var arr = loadPosted(key);
+      var i = arr.indexOf(num);
+      if (box.checked && i === -1) arr.push(num);
+      if (!box.checked && i !== -1) arr.splice(i, 1);
+      savePosted(key, arr);
+      var card = document.getElementById("card-" + key + "-" + num);
+      if (card) card.classList.toggle("is-posted", box.checked);
+      updateProgress();
+    }
+
+    function applyPosted(key) {
+      var arr = loadPosted(key);
+      var list = BATCHES[key].arr;
+      for (var i = 0; i < list.length; i++) {
+        var num = list[i].num;
+        var box = document.getElementById("chk-" + key + "-" + num);
+        var card = document.getElementById("card-" + key + "-" + num);
+        var on = arr.indexOf(num) !== -1;
+        if (box) box.checked = on;
+        if (card) card.classList.toggle("is-posted", on);
+      }
+    }
+
+    function updateProgress() {
+      var b = BATCHES[activeBatch];
+      var done = loadPosted(activeBatch).length;
+      document.getElementById("progressLine").textContent = done + " of " + b.arr.length + " posted";
+    }
+
+    /* ── Tabs ── */
+
+    function showBatch(key) {
+      activeBatch = key;
+      var keys = ["b1", "b2"];
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var on = k === key;
+        document.getElementById("posts-" + k).hidden = !on;
+        var tab = document.getElementById("tab-" + k);
+        tab.classList.toggle("active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+      }
+      document.getElementById("batchNote").textContent = BATCHES[key].note;
+      updateProgress();
+    }
+
     function exportAll() {
-      var t = "TYPED TAROT CONTENT KIT — 12 POSTS\n";
+      var batch = BATCHES[activeBatch];
+      var posts = batch.arr;
+      var t = batch.heading + "\n";
       t += "==================================================\n\n";
       t += "Handle: @TheTypedTarot\n";
       t += "Discover booking link: " + DISCOVER_LINK + "\n";
@@ -792,12 +1125,22 @@
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
       a.href = url;
-      a.download = "typed-tarot-content-kit-12-posts.txt";
+      a.download = batch.file;
       a.click();
       URL.revokeObjectURL(url);
     }
 
-    document.getElementById("posts").innerHTML = posts.map(renderPost).join("");
+    (function init() {
+      var keys = ["b1", "b2"];
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        document.getElementById("posts-" + k).innerHTML = BATCHES[k].arr.map(function(p) {
+          return renderPost(p, k);
+        }).join("");
+        applyPosted(k);
+      }
+      showBatch("b1");
+    })();
   </script>
 </body>
 </html>
